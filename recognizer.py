@@ -30,6 +30,10 @@ class recognizer:
         while True:
             ret, frame = self.videoCapture.read()
 
+            if frame is None:
+                print "Failed to get frames!"
+                exit()
+            
             rgbFrame = frame[:, :, ::-1]
 
             face_locations = face_recognition.face_locations(rgbFrame)
@@ -55,5 +59,5 @@ class recognizer:
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
 
-        videoCapture.release()
+        self.videoCapture.release()
         cv2.destroyAllWindows()
